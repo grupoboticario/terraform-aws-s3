@@ -2,28 +2,14 @@
 # Description : This Script is used to create S3.
 ## Copyright @ CloudDrove. All Right Reserved.
 
-#Module      : label
-#Description : This terraform module is designed to generate consistent label names and
-#              tags for resources. You can use terraform-labels to implement a strict
-#              naming convention.
-module "labels" {
-  source = "git::https://github.com/clouddrove/terraform-labels.git?ref=tags/0.12.0"
-
-  name        = var.name
-  application = var.application
-  environment = var.environment
-  label_order = var.label_order
-}
-
 # Module      : S3 BUCKET
 # Description : Terraform module to create default S3 bucket with logging and encryption
 #               type specific features.
 resource "aws_s3_bucket" "s3_default" {
   count = var.create_bucket && var.bucket_enabled == true ? 1 : 0
 
-  bucket        = module.labels.id
+  bucket        = var.name
   force_destroy = var.force_destroy
-  region        = var.region
   acl           = var.acl
 
   versioning {
@@ -65,7 +51,10 @@ resource "aws_s3_bucket" "s3_default" {
     }
   }
 
-  tags = module.labels.tags
+  tags = {
+    Environment = var.environment
+    Application = var.application
+  }
 
 }
 
@@ -84,9 +73,8 @@ resource "aws_s3_bucket_policy" "s3_default" {
 resource "aws_s3_bucket" "s3_website" {
   count = var.create_bucket && var.website_hosting_bucket == true ? 1 : 0
 
-  bucket        = module.labels.id
+  bucket        = var.name
   force_destroy = var.force_destroy
-  region        = var.region
   acl           = var.acl
 
   versioning {
@@ -133,7 +121,10 @@ resource "aws_s3_bucket" "s3_website" {
     }
   }
 
-  tags = module.labels.tags
+  tags = {
+    Environment = var.environment
+    Application = var.application
+  }
 
 }
 
@@ -152,9 +143,8 @@ resource "aws_s3_bucket_policy" "s3_website" {
 resource "aws_s3_bucket" "s3_logging" {
   count = var.create_bucket && var.bucket_logging_enabled == true ? 1 : 0
 
-  bucket        = module.labels.id
+  bucket        = var.name
   force_destroy = var.force_destroy
-  region        = var.region
   acl           = var.acl
 
   versioning {
@@ -200,7 +190,10 @@ resource "aws_s3_bucket" "s3_logging" {
     target_prefix = var.target_prefix
   }
 
-  tags = module.labels.tags
+  tags = {
+    Environment = var.environment
+    Application = var.application
+  }
 
 }
 
@@ -218,9 +211,8 @@ resource "aws_s3_bucket_policy" "s3_logging" {
 resource "aws_s3_bucket" "s3_encryption" {
   count = var.create_bucket && var.encryption_enabled == true ? 1 : 0
 
-  bucket        = module.labels.id
+  bucket        = var.name
   force_destroy = var.force_destroy
-  region        = var.region
   acl           = var.acl
 
   versioning {
@@ -271,7 +263,10 @@ resource "aws_s3_bucket" "s3_encryption" {
     }
   }
 
-  tags = module.labels.tags
+  tags = {
+    Environment = var.environment
+    Application = var.application
+  }
 
 }
 

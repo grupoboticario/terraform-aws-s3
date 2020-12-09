@@ -18,8 +18,3 @@ output "bucket_domain_name" {
   description = "The Domain of the s3 bucket."
 
 }
-
-output "tags" {
-  value       = module.labels.tags
-  description = "A mapping of tags to assign to the resource."
-}

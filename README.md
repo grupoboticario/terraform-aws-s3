@@ -69,44 +69,41 @@ This module has a few dependencies:
 Here are some examples of how you can use this module in your inventory structure:
 ### Basic Bucket
 ```hcl
-module "s3_bucket" {
-  source              = "https://github.com/clouddrove/terraform-aws-s3?ref=tags/0.12.3"
-  name                = "secure-bucket"
-  region              = "eu-west-1"
-  application         = "clouddrove"
-  environment         = "test"
-  label_order         = ["environment", "application", "name"]
-  versioning          = true
-  acl                 = "private"
-  bucket_enabled      = true
+module "s3" {
+  source  = "app.terraform.io/grupoboticario-AWS/s3/aws"
+  version = "0.12.4"
+  environment    = var.environment
+  application    = var.application
+  name           = "bucket name"
+  acl            = "private"
 }
 ```
 ### Encryption Bucket
 ```hcl
-module "s3_bucket" {
-  source              = "https://github.com/clouddrove/terraform-aws-s3?ref=tags/0.12.3"
-  name                = "encryption-bucket"
-  region              = "eu-west-1"
-  application         = "clouddrove"
-  environment         = "test"
-  label_order         = ["environment", "application", "name"]
+module "s3" {
+  source  = "app.terraform.io/grupoboticario-AWS/s3/aws"
+  version = "0.12.4"
+  environment    = var.environment
+  application    = var.application
+  encryption_enabled = true
   versioning          = true
-  acl                 = "private"
-  encryption_enabled  = true
   sse_algorithm       = "AES256"
+  name           = "bucket name"
+  acl            = "private"
 }
 ```
 ### Logging Bucket
 ```hcl
-module "s3_bucket" {
-  source                  = "https://github.com/clouddrove/terraform-aws-s3?ref=tags/0.12.3"
-  name                    = "logging-bucket"
-  region                  = "eu-west-1"
-  application             = "clouddrove"
-  environment             = "test"
-  label_order             = ["environment", "application", "name"]
-  versioning              = true
-  acl                     = "private"
+module "s3-documents" {
+  source  = "app.terraform.io/grupoboticario-AWS/s3/aws"
+  version = "0.12.4"
+  environment    = var.environment
+  application    = var.application
+  encryption_enabled = true
+  versioning          = true
+  sse_algorithm       = "AES256"
+  name           = "bucket name"
+  acl            = "private"
   bucket_logging_enabled  = true
   target_bucket           = "bucket-logs12"
   target_prefix           = "logs"
@@ -114,15 +111,16 @@ module "s3_bucket" {
 ```
 ### Website Host Bucket
 ```hcl
-module "s3_bucket" {
-  source                              = "https://github.com/clouddrove/terraform-aws-s3?ref=tags/0.12.3"
-  name                                = "website-bucket"
-  region                              = "eu-west-1"
-  application                         = "clouddrove"
-  environment                         = "test"
-  label_order                         = ["environment", "application", "name"]
-  versioning                          = true
-  acl                                 = "private"
+module "s3-documents" {
+  source  = "app.terraform.io/grupoboticario-AWS/s3/aws"
+  version = "0.12.4"
+  environment    = var.environment
+  application    = var.application
+  encryption_enabled = true
+  versioning          = true
+  sse_algorithm       = "AES256"
+  name           = "bucket name"
+  acl            = "private"
   website_hosting_bucket              = true
   website_index                       = "index.html"
   website_error                       = "error.html"
@@ -157,7 +155,7 @@ data "aws_iam_policy_document" "default" {
 | application | Application (e.g. `cd` or `clouddrove`). | string | `` | no |
 | attributes | Additional attributes (e.g. `1`). | list | `<list>` | no |
 | aws_iam_policy_document | Specifies the number of days after object creation when the object expires. | string | `` | no |
-| bucket_enabled | Enable simple S3. | bool | `false` | no |
+| bucket_enabled | Enable simple S3. | bool | `true` | no |
 | bucket_logging_enabled | Enable logging of S3. | bool | `false` | no |
 | bucket_policy | Conditionally create S3 bucket policy. | bool | `false` | no |
 | create_bucket | Conditionally create S3 bucket. | bool | `true` | no |
@@ -177,7 +175,6 @@ data "aws_iam_policy_document" "default" {
 | lifecycle_infrequent_storage_object_prefix | Object key prefix identifying one or more objects to which the lifecycle rule applies. | string | `` | no |
 | lifecycle_infrequent_storage_transition_enabled | Specifies infrequent storage transition lifecycle rule status. | bool | `false` | no |
 | name | Name  (e.g. `app` or `cluster`). | string | `` | no |
-| region | Region Where you want to host S3. | string | `` | no |
 | sse_algorithm | The server-side encryption algorithm to use. Valid values are AES256 and aws:kms. | string | `AES256` | no |
 | tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`). | map | `<map>` | no |
 | target_bucket | The name of the bucket that will receive the log objects. | string | `` | no |

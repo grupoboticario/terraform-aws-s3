@@ -56,12 +56,6 @@ variable "versioning" {
   description = "Enable Versioning of S3."
 }
 
-variable "region" {
-  type        = string
-  default     = ""
-  description = "Region Where you want to host S3."
-}
-
 variable "acl" {
   type        = string
   default     = ""
@@ -70,7 +64,7 @@ variable "acl" {
 
 variable "bucket_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = "Enable simple S3."
 }
 

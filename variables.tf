@@ -18,7 +18,7 @@ variable "application" {
 
 variable "project" {
   type        = string
-  description = "Application name to identify resources"
+  description = "Project name to identify resources"
 }
 
 variable "team" {

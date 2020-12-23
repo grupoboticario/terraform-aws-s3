@@ -6,16 +6,29 @@ variable "name" {
   description = "Name  (e.g. `app` or `cluster`)."
 }
 
-variable "application" {
-  type        = string
-  default     = ""
-  description = "Application (e.g. `cd` or `clouddrove`)."
-}
-
 variable "environment" {
   type        = string
-  default     = ""
-  description = "Environment (e.g. `prod`, `dev`, `staging`)."
+  description = "Environment name to be appended on resources"
+}
+
+variable "application" {
+  type        = string
+  description = "Application name to identify resources"
+}
+
+variable "project" {
+  type        = string
+  description = "Application name to identify resources"
+}
+
+variable "team" {
+  type        = string
+  description = "Team assigned to project"
+}
+
+variable "vs" {
+  type        = string
+  description = "Value Stream"
 }
 
 variable "label_order" {

@@ -52,8 +52,11 @@ resource "aws_s3_bucket" "s3_default" {
   }
 
   tags = {
-    Environment = var.environment
-    Application = var.application
+    environment = var.environment
+    application = var.application
+    vs          = var.vs
+    project     = var.project
+    team        = var.team
   }
 
 }
@@ -122,8 +125,11 @@ resource "aws_s3_bucket" "s3_website" {
   }
 
   tags = {
-    Environment = var.environment
-    Application = var.application
+    environment = var.environment
+    application = var.application
+    vs          = var.vs
+    project     = var.project
+    team        = var.team
   }
 
 }
@@ -191,8 +197,11 @@ resource "aws_s3_bucket" "s3_logging" {
   }
 
   tags = {
-    Environment = var.environment
-    Application = var.application
+    environment = var.environment
+    application = var.application
+    vs          = var.vs
+    project     = var.project
+    team        = var.team
   }
 
 }
@@ -264,8 +273,11 @@ resource "aws_s3_bucket" "s3_encryption" {
   }
 
   tags = {
-    Environment = var.environment
-    Application = var.application
+    environment = var.environment
+    application = var.application
+    vs          = var.vs
+    project     = var.project
+    team        = var.team
   }
 
 }

@@ -208,3 +208,14 @@ variable "force_destroy" {
   default     = false
   description = "A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable."
 }
+
+variable "cors_rule_inputs" {
+  type = list(object({
+    allowed_headers = list(string)
+    allowed_methods = list(string)
+    allowed_origins = list(string)
+    expose_headers  = list(string)
+  }))
+  default     = null
+  description = "Specifies the allowed headers, methods, origins and exposed headers when using CORS on this bucket"
+}

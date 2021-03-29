@@ -6,31 +6,6 @@ variable "name" {
   description = "Name  (e.g. `app` or `cluster`)."
 }
 
-variable "environment" {
-  type        = string
-  description = "Environment name to be appended on resources"
-}
-
-variable "application" {
-  type        = string
-  description = "Application name to identify resources"
-}
-
-variable "project" {
-  type        = string
-  description = "Project name to identify resources"
-}
-
-variable "team" {
-  type        = string
-  description = "Team assigned to project"
-}
-
-variable "vs" {
-  type        = string
-  description = "Value Stream"
-}
-
 variable "label_order" {
   type        = list
   default     = []

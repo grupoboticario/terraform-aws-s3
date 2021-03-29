@@ -62,13 +62,7 @@ resource "aws_s3_bucket" "s3_default" {
     }
   }
 
-  tags = {
-    environment = var.environment
-    application = var.application
-    vs          = var.vs
-    project     = var.project
-    team        = var.team
-  }
+  tags = var.tags
 
 }
 
@@ -135,13 +129,7 @@ resource "aws_s3_bucket" "s3_website" {
     }
   }
 
-  tags = {
-    environment = var.environment
-    application = var.application
-    vs          = var.vs
-    project     = var.project
-    team        = var.team
-  }
+  tags = var.tags
 
 }
 
@@ -207,13 +195,7 @@ resource "aws_s3_bucket" "s3_logging" {
     target_prefix = var.target_prefix
   }
 
-  tags = {
-    environment = var.environment
-    application = var.application
-    vs          = var.vs
-    project     = var.project
-    team        = var.team
-  }
+  tags = var.tags
 
 }
 
@@ -283,13 +265,7 @@ resource "aws_s3_bucket" "s3_encryption" {
     }
   }
 
-  tags = {
-    environment = var.environment
-    application = var.application
-    vs          = var.vs
-    project     = var.project
-    team        = var.team
-  }
+  tags = var.tags
 
 }
 
